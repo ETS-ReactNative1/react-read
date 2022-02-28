@@ -7,7 +7,9 @@
  * @flow
  */
 
-import {enableNewReconciler} from 'shared/ReactFeatureFlags';
+import {
+  enableNewReconciler // false
+} from 'shared/ReactFeatureFlags';
 
 // The entry file imports either the old or new version of the reconciler.
 // During build and testing, this indirection is always shimmed with the actual

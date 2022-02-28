@@ -17,7 +17,7 @@ export {
   findDOMNode,
   flushSync,
   hydrate,
-  render,
+  render, // done
   unmountComponentAtNode,
   unstable_batchedUpdates,
   unstable_createEventHandle,
@@ -25,5 +25,5 @@ export {
   unstable_isNewReconciler,
   unstable_renderSubtreeIntoContainer,
   unstable_runWithPriority, // DO NOT USE: Temporarily exposed to migrate off of Scheduler.runWithPriority.
-  version,
+  version, // done
 } from './src/client/ReactDOM';

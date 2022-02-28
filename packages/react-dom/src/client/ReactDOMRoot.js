@@ -152,6 +152,7 @@ ReactDOMHydrationRoot.prototype.unmount = ReactDOMRoot.prototype.unmount = funct
   }
 };
 
+// 
 export function createRoot(
   container: Container,
   options?: CreateRootOptions,
@@ -196,6 +197,7 @@ export function createRoot(
     }
   }
 
+  // 创造一个容器
   const root = createContainer(
     container,
     ConcurrentRoot,
@@ -207,11 +209,13 @@ export function createRoot(
     onRecoverableError,
     transitionCallbacks,
   );
+  // 为fiber做一个标记
   markContainerAsRoot(root.current, container);
 
   const rootContainerElement =
     container.nodeType === COMMENT_NODE ? container.parentNode : container;
   listenToAllSupportedEvents(rootContainerElement);
+  // 监听所有支持的事件
 
   return new ReactDOMRoot(root);
 }
