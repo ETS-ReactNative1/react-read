@@ -19,6 +19,7 @@ export function push(heap: Heap, node: Node): void {
   siftUp(heap, node, index);
 }
 
+// 看一眼第一个
 export function peek(heap: Heap): Node | null {
   return heap.length === 0 ? null : heap[0];
 }

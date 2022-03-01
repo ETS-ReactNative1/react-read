@@ -9,13 +9,13 @@
 /* eslint-disable no-var */
 
 import {
-  enableSchedulerDebugging,
-  enableProfiling,
-  enableIsInputPending,
-  enableIsInputPendingContinuous,
-  frameYieldMs,
-  continuousYieldMs,
-  maxYieldMs,
+  enableSchedulerDebugging, // false
+  enableProfiling, // false
+  enableIsInputPending, // false
+  enableIsInputPendingContinuous, // false
+  frameYieldMs, // 5
+  continuousYieldMs, // 50
+  maxYieldMs, // 300
 } from '../SchedulerFeatureFlags';
 
 import {push, pop, peek} from '../SchedulerMinHeap';
@@ -88,6 +88,7 @@ var isHostCallbackScheduled = false;
 var isHostTimeoutScheduled = false;
 
 // Capture local references to native APIs, in case a polyfill overrides them.
+// 兼容运行环境的方法
 const localSetTimeout = typeof setTimeout === 'function' ? setTimeout : null;
 const localClearTimeout =
   typeof clearTimeout === 'function' ? clearTimeout : null;
@@ -438,6 +439,7 @@ let startTime = -1;
 
 let needsPaint = false;
 
+// 是否生成到host
 function shouldYieldToHost() {
   const timeElapsed = getCurrentTime() - startTime;
   if (timeElapsed < frameInterval) {
@@ -513,6 +515,7 @@ function forceFrameRate(fps) {
   }
 }
 
+// 
 const performWorkUntilDeadline = () => {
   if (scheduledHostCallback !== null) {
     const currentTime = getCurrentTime();
@@ -549,6 +552,7 @@ const performWorkUntilDeadline = () => {
 };
 
 let schedulePerformWorkUntilDeadline;
+// 分情况为它赋值方法
 if (typeof localSetImmediate === 'function') {
   // Node.js and old IE.
   // There's a few reasons for why we prefer setImmediate.
@@ -607,19 +611,19 @@ export {
   NormalPriority as unstable_NormalPriority,
   IdlePriority as unstable_IdlePriority,
   LowPriority as unstable_LowPriority,
-  unstable_runWithPriority,
-  unstable_next,
-  unstable_scheduleCallback,
+  unstable_runWithPriority, // 执行回调方法
+  unstable_next, // 执行回调方法
+  unstable_scheduleCallback, // 执行回调方法
   unstable_cancelCallback,
-  unstable_wrapCallback,
-  unstable_getCurrentPriorityLevel,
+  unstable_wrapCallback, // 返回封装后的cb
+  unstable_getCurrentPriorityLevel, // 3
   shouldYieldToHost as unstable_shouldYield,
-  unstable_requestPaint,
+  unstable_requestPaint, //
   unstable_continueExecution,
-  unstable_pauseExecution,
-  unstable_getFirstCallbackNode,
-  getCurrentTime as unstable_now,
-  forceFrameRate as unstable_forceFrameRate,
+  unstable_pauseExecution, // 
+  unstable_getFirstCallbackNode, // 得到第一个cb
+  getCurrentTime as unstable_now, // 得到当前时间
+  forceFrameRate as unstable_forceFrameRate, // 强制更新率
 };
 
 export const unstable_Profiling = enableProfiling
