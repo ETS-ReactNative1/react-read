@@ -135,7 +135,7 @@ function legacyCreateRootFromDOMContainer(
 
   const rootContainerElement =
     container.nodeType === COMMENT_NODE ? container.parentNode : container;
-  listenToAllSupportedEvents(rootContainerElement);
+  listenToAllSupportedEvents(rootContainerElement); // 为它绑定监听器
 
   return root;
 }

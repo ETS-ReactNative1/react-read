@@ -25,6 +25,7 @@ export function addEventCaptureListener(
   return listener;
 }
 
+// 绑定监听器
 export function addEventCaptureListenerWithPassiveFlag(
   target: EventTarget,
   eventType: string,
@@ -50,6 +51,7 @@ export function addEventBubbleListenerWithPassiveFlag(
   return listener;
 }
 
+// 删除监听器
 export function removeEventListener(
   target: EventTarget,
   eventType: string,

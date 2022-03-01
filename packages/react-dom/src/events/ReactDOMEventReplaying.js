@@ -16,7 +16,7 @@ import type {EventPriority} from 'react-reconciler/src/ReactEventPriorities';
 
 import {
   enableSelectiveHydration,
-  enableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay,
+  enableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay, // true
 } from 'shared/ReactFeatureFlags';
 import {
   unstable_scheduleCallback as scheduleCallback,
@@ -169,6 +169,7 @@ export function isDiscreteEventThatRequiresHydration(
   return discreteReplayableEvents.indexOf(eventType) > -1;
 }
 
+// 返回一个对象
 function createQueuedReplayableEvent(
   blockedOn: null | Container | SuspenseInstance,
   domEventName: DOMEventName,
@@ -185,6 +186,7 @@ function createQueuedReplayableEvent(
   };
 }
 
+// 
 export function queueDiscreteEvent(
   blockedOn: null | Container | SuspenseInstance,
   domEventName: DOMEventName,
@@ -202,6 +204,7 @@ export function queueDiscreteEvent(
     targetContainer,
     nativeEvent,
   );
+  // 使用闭包处理queuedDiscreteEvents的作用域
   queuedDiscreteEvents.push(queuedEvent);
   if (enableSelectiveHydration) {
     if (queuedDiscreteEvents.length === 1) {
@@ -212,7 +215,7 @@ export function queueDiscreteEvent(
         if (fiber === null) {
           break;
         }
-        attemptSynchronousHydration(fiber);
+        attemptSynchronousHydration(fiber); //
         if (queuedEvent.blockedOn === null) {
           // We got unblocked by hydration. Let's try again.
           replayUnblockedEvents();
@@ -230,6 +233,7 @@ export function queueDiscreteEvent(
 }
 
 // Resets the replaying for this type of continuous event to no event.
+// 清空队列中的事件
 export function clearIfContinuousEvent(
   domEventName: DOMEventName,
   nativeEvent: AnyNativeEvent,
@@ -262,6 +266,7 @@ export function clearIfContinuousEvent(
   }
 }
 
+// 添加事件
 function accumulateOrCreateContinuousQueuedReplayableEvent(
   existingQueuedEvent: null | QueuedReplayableEvent,
   blockedOn: null | Container | SuspenseInstance,
@@ -305,6 +310,7 @@ function accumulateOrCreateContinuousQueuedReplayableEvent(
   return existingQueuedEvent;
 }
 
+// 添加事件
 export function queueIfContinuousEvent(
   blockedOn: null | Container | SuspenseInstance,
   domEventName: DOMEventName,
@@ -517,6 +523,7 @@ function attemptReplayContinuousQueuedEventInMap(
   }
 }
 
+// 
 function replayUnblockedEvents() {
   hasScheduledReplayAttempt = false;
   if (!enableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay) {

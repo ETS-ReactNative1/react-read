@@ -49,7 +49,7 @@ import getListener from './getListener';
 import {passiveBrowserEventsSupported} from './checkPassiveEvents';
 
 import {
-  enableLegacyFBSupport,
+  enableLegacyFBSupport, // false
   enableCreateEventHandleAPI,
   enableScopeAPI,
 } from 'shared/ReactFeatureFlags';
@@ -326,6 +326,7 @@ export function listenToNonDelegatedEvent(
   }
 }
 
+// 为指定的元素添加监听器
 export function listenToNativeEvent(
   domEventName: DOMEventName,
   isCapturePhaseListener: boolean,
@@ -386,7 +387,7 @@ const listeningMarker =
     .toString(36)
     .slice(2);
 
-// 
+// 为元素添加监听器
 export function listenToAllSupportedEvents(rootContainerElement: EventTarget) {
   if (!(rootContainerElement: any)[listeningMarker]) {
     (rootContainerElement: any)[listeningMarker] = true;
@@ -394,7 +395,7 @@ export function listenToAllSupportedEvents(rootContainerElement: EventTarget) {
       // We handle selectionchange separately because it
       // doesn't bubble and needs to be on the document.
       if (domEventName !== 'selectionchange') {
-        if (!nonDelegatedEvents.has(domEventName)) {
+        if (!nonDelegatedEvents.has(domEventName)) { // 处理可委托的事件
           listenToNativeEvent(domEventName, false, rootContainerElement);
         }
         listenToNativeEvent(domEventName, true, rootContainerElement);
@@ -415,6 +416,7 @@ export function listenToAllSupportedEvents(rootContainerElement: EventTarget) {
   }
 }
 
+// 添加监听器
 function addTrappedEventListener(
   targetContainer: EventTarget,
   domEventName: DOMEventName,
@@ -422,6 +424,7 @@ function addTrappedEventListener(
   isCapturePhaseListener: boolean,
   isDeferredListenerForLegacyFBSupport?: boolean,
 ) {
+  // 得到一个事件监听器
   let listener = createEventListenerWrapperWithPriority(
     targetContainer,
     domEventName,
@@ -446,6 +449,7 @@ function addTrappedEventListener(
     }
   }
 
+  // 当前总是返回targetContainer
   targetContainer =
     enableLegacyFBSupport && isDeferredListenerForLegacyFBSupport
       ? (targetContainer: any).ownerDocument
@@ -466,6 +470,7 @@ function addTrappedEventListener(
   if (enableLegacyFBSupport && isDeferredListenerForLegacyFBSupport) {
     const originalListener = listener;
     listener = function(...p) {
+      // 删除监听器
       removeEventListener(
         targetContainer,
         domEventName,
@@ -537,6 +542,7 @@ function isMatchingRootContainer(
   );
 }
 
+// 分发事件
 export function dispatchEventForPluginEventSystem(
   domEventName: DOMEventName,
   eventSystemFlags: EventSystemFlags,

@@ -82,6 +82,7 @@ export function createEventListenerWrapper(
   );
 }
 
+// 根据事件的优先级返回绑定的事件
 export function createEventListenerWrapperWithPriority(
   targetContainer: EventTarget,
   domEventName: DOMEventName,
@@ -89,6 +90,7 @@ export function createEventListenerWrapperWithPriority(
 ): Function {
   const eventPriority = getEventPriority(domEventName); // 返回事件的优先级
   let listenerWrapper;
+  // 根据优先级分别返回事件
   switch (eventPriority) {
     case DiscreteEventPriority:
       listenerWrapper = dispatchDiscreteEvent;
@@ -109,6 +111,7 @@ export function createEventListenerWrapperWithPriority(
   );
 }
 
+// 
 function dispatchDiscreteEvent(
   domEventName,
   eventSystemFlags,
@@ -155,7 +158,7 @@ export function dispatchEvent(
   if (!_enabled) {
     return;
   }
-  if (enableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay) {
+  if (enableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay) { // true
     dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay(
       domEventName,
       eventSystemFlags,
@@ -218,13 +221,13 @@ function dispatchEventOriginal(
       targetContainer,
     );
     if (allowReplay) {
-      clearIfContinuousEvent(domEventName, nativeEvent);
+      clearIfContinuousEvent(domEventName, nativeEvent); // 清空事件
     }
     return;
   }
 
   if (allowReplay) {
-    if (isDiscreteEventThatRequiresHydration(domEventName)) {
+    if (isDiscreteEventThatRequiresHydration(domEventName)) { // boolean
       // This this to be replayed later once the target is available.
       queueDiscreteEvent(
         blockedOn,
@@ -236,7 +239,7 @@ function dispatchEventOriginal(
       return;
     }
     if (
-      queueIfContinuousEvent(
+      queueIfContinuousEvent( // 添加到队列
         blockedOn,
         domEventName,
         eventSystemFlags,
@@ -262,7 +265,7 @@ function dispatchEventOriginal(
   );
 }
 
-// 
+// 分发事件
 function dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay(
   domEventName: DOMEventName,
   eventSystemFlags: EventSystemFlags,

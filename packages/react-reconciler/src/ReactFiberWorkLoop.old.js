@@ -114,7 +114,7 @@ import {
   NoLanes,
   NoLane,
   SyncLane,
-  NoTimestamp,
+  NoTimestamp, // -1
   claimNextTransitionLane,
   claimNextRetryLane,
   includesSomeLane,
@@ -354,6 +354,7 @@ export function getWorkInProgressRoot(): FiberRoot | null {
   return workInProgressRoot;
 }
 
+// 返回一个值
 export function requestEventTime() {
   if ((executionContext & (RenderContext | CommitContext)) !== NoContext) {
     // We're inside React, so it's fine to read the actual time.
