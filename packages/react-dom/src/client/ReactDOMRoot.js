@@ -230,6 +230,7 @@ function scheduleHydration(target: Node) {
 }
 ReactDOMHydrationRoot.prototype.unstable_scheduleHydration = scheduleHydration;
 
+// 返回类似fiber的东西
 export function hydrateRoot(
   container: Container,
   initialChildren: ReactNodeList,
@@ -293,6 +294,7 @@ export function hydrateRoot(
   }
 
   return new ReactDOMHydrationRoot(root);
+  // {reander, unmount}
 }
 
 export function isValidContainer(node: any): boolean {

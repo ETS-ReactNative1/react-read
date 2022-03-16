@@ -11,10 +11,10 @@
 // We can't use export * from in Flow for some reason.
 export {
   __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,
-  createPortal,
-  createRoot,
-  hydrateRoot,
-  findDOMNode,
+  createPortal, // 把参数整理为一个对象
+  createRoot, // return new ReactDOMRoot(...)
+  hydrateRoot, 
+  findDOMNode, // return fiber.stateNode
   flushSync,
   hydrate,
   render, // done

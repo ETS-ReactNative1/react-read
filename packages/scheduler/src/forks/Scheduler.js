@@ -306,6 +306,7 @@ function unstable_wrapCallback(callback) {
   };
 }
 
+// 返回一个对象
 function unstable_scheduleCallback(priorityLevel, callback, options) {
   var currentTime = getCurrentTime();
 
@@ -322,6 +323,7 @@ function unstable_scheduleCallback(priorityLevel, callback, options) {
   }
 
   var timeout;
+  // 分别设置超时时间
   switch (priorityLevel) {
     case ImmediatePriority:
       timeout = IMMEDIATE_PRIORITY_TIMEOUT;
@@ -351,7 +353,7 @@ function unstable_scheduleCallback(priorityLevel, callback, options) {
     expirationTime,
     sortIndex: -1,
   };
-  if (enableProfiling) {
+  if (enableProfiling) { // false
     newTask.isQueued = false;
   }
 
@@ -592,12 +594,14 @@ function requestHostCallback(callback) {
   }
 }
 
+// 把方法设置到异步队列中
 function requestHostTimeout(callback, ms) {
   taskTimeoutID = localSetTimeout(() => {
     callback(getCurrentTime());
   }, ms);
 }
 
+// 取消异步队列中的事物
 function cancelHostTimeout() {
   localClearTimeout(taskTimeoutID);
   taskTimeoutID = -1;

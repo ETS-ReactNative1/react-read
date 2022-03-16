@@ -161,6 +161,7 @@ declare function flushSync<R>(fn: () => R): R;
 // eslint-disable-next-line no-redeclare
 declare function flushSync(): void;
 // eslint-disable-next-line no-redeclare
+
 function flushSync(fn) {
   if (__DEV__) {
     if (isAlreadyRendering()) {

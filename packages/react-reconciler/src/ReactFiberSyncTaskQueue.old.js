@@ -48,6 +48,7 @@ export function flushSyncCallbacksOnlyInLegacyMode() {
   }
 }
 
+// 
 export function flushSyncCallbacks() {
   if (!isFlushingSyncQueue && syncQueue !== null) {
     // Prevent re-entrance.

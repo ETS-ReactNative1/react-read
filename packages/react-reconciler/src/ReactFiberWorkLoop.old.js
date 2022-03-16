@@ -1323,7 +1323,7 @@ export function flushSync(fn) {
   executionContext |= BatchedContext;
 
   const prevTransition = ReactCurrentBatchConfig.transition;
-  const previousPriority = getCurrentUpdatePriority();
+  const previousPriority = getCurrentUpdatePriority(); // 得到当前的更新优先级
   try {
     ReactCurrentBatchConfig.transition = null;
     setCurrentUpdatePriority(DiscreteEventPriority);
